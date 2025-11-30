@@ -55,28 +55,28 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative bg-brand-50 min-h-[600px] flex items-center overflow-hidden">
+    <section className="relative bg-brand-50 dark:bg-slate-900 min-h-[600px] flex items-center overflow-hidden transition-colors duration-300">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1545173168-9f1947eebb8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-10"></div>
       <div className="container mx-auto px-4 relative z-10 grid md:grid-cols-2 gap-12 items-center">
         <div>
           <div className="inline-block bg-brand-100 text-brand-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
             #1 Laundry Service in Surabaya
           </div>
-          <h1 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 leading-tight mb-6">
+          <h1 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 dark:text-white leading-tight mb-6">
             Fresh, Clean, & Delivered to <span className="text-brand-600">You.</span>
           </h1>
-          <p className="text-lg text-slate-600 mb-8 max-w-md">
+          <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-md">
             Professional laundry and dry cleaning with free pickup and delivery. Schedule your pickup online in less than 60 seconds.
           </p>
 
-          <div className="bg-white p-2 rounded-xl shadow-lg inline-block w-full max-w-md mb-8">
+          <div className="bg-white dark:bg-slate-800 p-2 rounded-xl shadow-lg inline-block w-full max-w-md mb-8 transition-colors duration-300">
             <form onSubmit={checkArea} className="flex">
               <div className="flex-grow flex items-center px-4 gap-2">
                 <MapPin size={20} className="text-slate-400" />
                 <input
                   type="text"
                   placeholder="Enter Zip Code"
-                  className="w-full py-3 outline-none text-slate-700"
+                  className="w-full py-3 outline-none text-slate-700 dark:text-slate-200 bg-transparent"
                   value={zipCode}
                   onChange={(e) => { setZipCode(e.target.value); setCheckResult(null); }}
                 />
@@ -106,7 +106,7 @@ const Hero = () => {
             <Link to="/booking" className="bg-brand-600 hover:bg-brand-700 text-white px-8 py-3.5 rounded-lg font-medium text-center transition-all shadow-lg hover:shadow-brand-200 flex items-center justify-center gap-2">
               Schedule Pickup <ArrowRight size={18} />
             </Link>
-            <Link to="/ai-quote" className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-8 py-3.5 rounded-lg font-medium text-center transition-all flex items-center justify-center">
+            <Link to="/ai-quote" className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 px-8 py-3.5 rounded-lg font-medium text-center transition-all flex items-center justify-center">
               AI Price Quote
             </Link>
           </div>
@@ -118,12 +118,12 @@ const Hero = () => {
             alt="Clean Laundry Stack"
             className="relative rounded-2xl shadow-2xl rotate-2 hover:rotate-0 transition-all duration-500"
           />
-          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl flex items-center gap-4">
+          <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-xl flex items-center gap-4 transition-colors duration-300">
             <div className="bg-green-100 p-3 rounded-full text-green-600">
               <CheckCircle size={24} />
             </div>
             <div>
-              <p className="font-bold text-slate-900">100% Satisfaction</p>
+              <p className="font-bold text-slate-900 dark:text-white">100% Satisfaction</p>
               <p className="text-sm text-slate-500">Or we re-wash for free</p>
             </div>
           </div>
@@ -141,16 +141,16 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-slate-950 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8">
           {features.map((f, i) => (
-            <div key={i} className="p-8 bg-slate-50 rounded-2xl hover:bg-brand-50 transition-colors group border border-slate-100">
-              <div className="w-14 h-14 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-600 mb-6 group-hover:scale-110 transition-transform">
+            <div key={i} className="p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl hover:bg-brand-50 dark:hover:bg-slate-800 transition-colors group border border-slate-100 dark:border-slate-800">
+              <div className="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-sm flex items-center justify-center text-brand-600 dark:text-brand-400 mb-6 group-hover:scale-110 transition-transform">
                 <f.icon size={28} />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{f.title}</h3>
-              <p className="text-slate-600 leading-relaxed">{f.desc}</p>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{f.title}</h3>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed">{f.desc}</p>
             </div>
           ))}
         </div>
@@ -163,11 +163,11 @@ const ServicesPreview = () => {
   const services = PricingFactory.getLivePricing();
 
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 mb-4">Our Services</h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">We handle everything from your daily wear to your most delicate fabrics with professional care.</p>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold text-slate-900 dark:text-white mb-4">Our Services</h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">We handle everything from your daily wear to your most delicate fabrics with professional care.</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => {
@@ -175,13 +175,13 @@ const ServicesPreview = () => {
             const Icon = asset.icon;
 
             return (
-              <div key={service.id} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all">
-                <div className="w-12 h-12 bg-brand-100 text-brand-600 rounded-lg flex items-center justify-center mb-4">
+              <div key={service.id} className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-all border border-transparent dark:border-slate-700">
+                <div className="w-12 h-12 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-lg flex items-center justify-center mb-4">
                   <Icon size={24} />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{service.title}</h3>
-                <p className="text-slate-500 text-sm mb-4 line-clamp-3">{asset.description}</p>
-                <Link to="/booking" className="text-brand-600 font-medium text-sm hover:underline">Book Now →</Link>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{service.title}</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mb-4 line-clamp-3">{asset.description}</p>
+                <Link to="/booking" className="text-brand-600 dark:text-brand-400 font-medium text-sm hover:underline">Book Now →</Link>
               </div>
             )
           })}
@@ -200,14 +200,14 @@ const InstagramFeed = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-slate-950 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h2 className="text-3xl font-serif font-bold text-slate-900 mb-2">Follow Us</h2>
-            <p className="text-slate-500">@ClouSurabaya</p>
+            <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-2">Follow Us</h2>
+            <p className="text-slate-500 dark:text-slate-400">@ClouSurabaya</p>
           </div>
-          <a href="#" className="hidden sm:inline-flex items-center gap-2 text-brand-600 font-medium hover:text-brand-700">
+          <a href="#" className="hidden sm:inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-medium hover:text-brand-700 dark:hover:text-brand-300">
             View Instagram <ArrowRight size={16} />
           </a>
         </div>
@@ -234,12 +234,12 @@ const Home = () => {
       <Hero />
       <Features />
       <ServicesPreview />
-      <section className="py-20 bg-brand-900 text-white">
+      <section className="py-20 bg-brand-900 dark:bg-slate-900 text-white transition-colors duration-300">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-12">Happy Customers</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {TESTIMONIALS.map((t) => (
-              <div key={t.id} className="bg-white/10 backdrop-blur-sm p-8 rounded-2xl text-left border border-white/10">
+              <div key={t.id} className="bg-white/10 dark:bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl text-left border border-white/10 dark:border-slate-700">
                 <div className="flex items-center gap-4 mb-6">
                   <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover border-2 border-brand-400" />
                   <div>
@@ -257,10 +257,10 @@ const Home = () => {
         </div>
       </section>
       <InstagramFeed />
-      <section className="py-24 bg-brand-50 text-center">
+      <section className="py-24 bg-brand-50 dark:bg-slate-900 text-center transition-colors duration-300">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-3xl font-serif font-bold text-slate-900 mb-6">Ready to Experience the Best Laundry Service?</h2>
-          <p className="text-slate-600 mb-8 text-lg">Schedule your first pickup today and get 20% off with code <span className="font-mono font-bold text-brand-600 bg-brand-100 px-2 py-1 rounded">CLOU20</span></p>
+          <h2 className="text-3xl font-serif font-bold text-slate-900 dark:text-white mb-6">Ready to Experience the Best Laundry Service?</h2>
+          <p className="text-slate-600 dark:text-slate-300 mb-8 text-lg">Schedule your first pickup today and get 20% off with code <span className="font-mono font-bold text-brand-600 dark:text-brand-400 bg-brand-100 dark:bg-brand-900/30 px-2 py-1 rounded">CLOU20</span></p>
           <Link to="/booking" className="inline-block bg-brand-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1">
             Book Now
           </Link>

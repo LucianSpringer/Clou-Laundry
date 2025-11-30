@@ -72,35 +72,35 @@ const AdminDashboard = () => {
     const renderLogistics = () => (
         <div className="space-y-6 animate-in fade-in">
             <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-red-100 text-red-600 rounded-lg"><Map size={20} /></div>
-                        <h3 className="font-bold text-slate-700">Initial Distance</h3>
+                        <div className="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg"><Map size={20} /></div>
+                        <h3 className="font-bold text-slate-700 dark:text-slate-200">Initial Distance</h3>
                     </div>
-                    <p className="text-3xl font-mono font-bold text-slate-900">{routeData?.initialDistance.toFixed(1)} <span className="text-sm text-slate-400 font-sans">km</span></p>
+                    <p className="text-3xl font-mono font-bold text-slate-900 dark:text-white">{routeData?.initialDistance.toFixed(1)} <span className="text-sm text-slate-400 font-sans">km</span></p>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-green-100 text-green-600 rounded-lg"><Truck size={20} /></div>
-                        <h3 className="font-bold text-slate-700">Optimized Distance</h3>
+                        <div className="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg"><Truck size={20} /></div>
+                        <h3 className="font-bold text-slate-700 dark:text-slate-200">Optimized Distance</h3>
                     </div>
-                    <p className="text-3xl font-mono font-bold text-slate-900">{routeData?.optimizedDistance.toFixed(1)} <span className="text-sm text-slate-400 font-sans">km</span></p>
+                    <p className="text-3xl font-mono font-bold text-slate-900 dark:text-white">{routeData?.optimizedDistance.toFixed(1)} <span className="text-sm text-slate-400 font-sans">km</span></p>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-blue-100 text-blue-600 rounded-lg"><Activity size={20} /></div>
-                        <h3 className="font-bold text-slate-700">Optimization Gain</h3>
+                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg"><Activity size={20} /></div>
+                        <h3 className="font-bold text-slate-700 dark:text-slate-200">Optimization Gain</h3>
                     </div>
-                    <p className="text-3xl font-mono font-bold text-blue-600">
+                    <p className="text-3xl font-mono font-bold text-blue-600 dark:text-blue-400">
                         {routeData && ((1 - routeData.optimizedDistance / routeData.initialDistance) * 100).toFixed(1)}%
                     </p>
-                    <p className="text-xs text-slate-500 mt-1">Simulated Annealing Iterations: {routeData?.iterations}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Simulated Annealing Iterations: {routeData?.iterations}</p>
                 </div>
             </div>
 
-            <div className="bg-slate-900 text-white p-6 rounded-xl shadow-lg">
+            <div className="bg-slate-900 dark:bg-slate-950 text-white p-6 rounded-xl shadow-lg border border-slate-800">
                 <h3 className="font-bold mb-4 flex items-center gap-2"><Settings size={18} /> VRP Solver Visualization</h3>
-                <div className="aspect-video bg-slate-800 rounded-lg relative overflow-hidden border border-slate-700">
+                <div className="aspect-video bg-slate-800 dark:bg-slate-900 rounded-lg relative overflow-hidden border border-slate-700">
                     {/* Simple Visualization of the Route */}
                     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
                         {/* Draw Path */}
@@ -129,26 +129,26 @@ const AdminDashboard = () => {
     const renderSupply = () => (
         <div className="space-y-6 animate-in fade-in">
             <div className="grid md:grid-cols-4 gap-4">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-purple-100 text-purple-600 rounded-lg"><TrendingUp size={20} /></div>
-                        <h3 className="font-bold text-slate-700">Next Week Forecast</h3>
+                        <div className="p-2 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg"><TrendingUp size={20} /></div>
+                        <h3 className="font-bold text-slate-700 dark:text-slate-200">Next Week Forecast</h3>
                     </div>
-                    <p className="text-2xl font-mono font-bold text-slate-900">{forecastData?.prediction} <span className="text-sm text-slate-400 font-sans">ml</span></p>
+                    <p className="text-2xl font-mono font-bold text-slate-900 dark:text-white">{forecastData?.prediction} <span className="text-sm text-slate-400 font-sans">ml</span></p>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-orange-100 text-orange-600 rounded-lg"><Activity size={20} /></div>
-                        <h3 className="font-bold text-slate-700">Trend Factor</h3>
+                        <div className="p-2 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-lg"><Activity size={20} /></div>
+                        <h3 className="font-bold text-slate-700 dark:text-slate-200">Trend Factor</h3>
                     </div>
-                    <p className="text-2xl font-mono font-bold text-slate-900">{forecastData?.trend} <span className="text-sm text-slate-400 font-sans">ml/day</span></p>
+                    <p className="text-2xl font-mono font-bold text-slate-900 dark:text-white">{forecastData?.trend} <span className="text-sm text-slate-400 font-sans">ml/day</span></p>
                 </div>
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 bg-red-100 text-red-600 rounded-lg"><AlertTriangle size={20} /></div>
-                        <h3 className="font-bold text-slate-700">Safety Stock</h3>
+                        <div className="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg"><AlertTriangle size={20} /></div>
+                        <h3 className="font-bold text-slate-700 dark:text-slate-200">Safety Stock</h3>
                     </div>
-                    <p className="text-2xl font-mono font-bold text-slate-900">{forecastData?.safetyStock} <span className="text-sm text-slate-400 font-sans">ml</span></p>
+                    <p className="text-2xl font-mono font-bold text-slate-900 dark:text-white">{forecastData?.safetyStock} <span className="text-sm text-slate-400 font-sans">ml</span></p>
                 </div>
                 <div className="bg-brand-600 text-white p-6 rounded-xl shadow-lg">
                     <div className="flex items-center gap-3 mb-2">
@@ -162,11 +162,11 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <h3 className="font-bold text-slate-900 mb-6 flex items-center gap-2"><BarChart3 size={20} /> Historical Usage vs Forecast</h3>
-                <div className="h-64 flex items-end gap-2 px-4 border-b border-l border-slate-200 pb-2">
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 transition-colors duration-300">
+                <h3 className="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2"><BarChart3 size={20} /> Historical Usage vs Forecast</h3>
+                <div className="h-64 flex items-end gap-2 px-4 border-b border-l border-slate-200 dark:border-slate-700 pb-2">
                     {forecastData?.history.map((val, i) => (
-                        <div key={i} className="flex-1 bg-slate-200 hover:bg-brand-200 transition-colors rounded-t relative group" style={{ height: `${(val / 2000) * 100}%` }}>
+                        <div key={i} className="flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-brand-200 dark:hover:bg-brand-900/50 transition-colors rounded-t relative group" style={{ height: `${(val / 2000) * 100}%` }}>
                             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                                 {val}ml
                             </div>
@@ -189,23 +189,23 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 transition-colors duration-300">
             <div className="container mx-auto px-4 max-w-6xl">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl font-serif font-bold text-slate-900">Operational Twin</h1>
-                        <p className="text-slate-500">Real-time logistics and supply chain intelligence.</p>
+                        <h1 className="text-3xl font-serif font-bold text-slate-900 dark:text-white">Operational Twin</h1>
+                        <p className="text-slate-500 dark:text-slate-400">Real-time logistics and supply chain intelligence.</p>
                     </div>
-                    <div className="flex bg-white p-1 rounded-lg border border-slate-200 shadow-sm">
+                    <div className="flex bg-white dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
                         <button
                             onClick={() => setActiveTab('logistics')}
-                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'logistics' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`}
+                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'logistics' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
                         >
                             Logistics Hyper-Router
                         </button>
                         <button
                             onClick={() => setActiveTab('supply')}
-                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'supply' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`}
+                            className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'supply' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'}`}
                         >
                             Predictive Supply Chain
                         </button>

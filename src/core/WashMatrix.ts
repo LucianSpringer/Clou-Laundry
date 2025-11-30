@@ -1,5 +1,7 @@
 
 
+import { LifecycleStatus } from './LinenLifecycle';
+
 export interface WashManifest {
     waterTempCelsius: number;
     drumRPM: number;
@@ -30,7 +32,8 @@ export class WashOptimizationSystem {
     static calculateCycle(
         entropyScore: number,
         volumeKg: number,
-        isSensitive: boolean
+        isSensitive: boolean,
+        linenStatus?: LifecycleStatus['tensileCategory'] // Optional integration
     ): WashManifest {
         // 1. Normalize Inputs to Matrix Indices
         const fabricIndex = entropyScore < 15 ? 0 : entropyScore < 40 ? 1 : 2;
@@ -54,6 +57,11 @@ export class WashOptimizationSystem {
         if (isSensitive) {
             rpm = Math.min(rpm, 600);
             temp = Math.min(temp, 40);
+        }
+
+        // 5b. Commercial Linen Lifecycle Integration
+        if (linenStatus === 'FRAGILE' || linenStatus === 'CRITICAL') {
+            rpm = Math.min(rpm, 600); // Hard cap to prevent tearing
         }
 
         // 6. Risk Calculation (Sigmoid Function)
