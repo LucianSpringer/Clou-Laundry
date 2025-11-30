@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { BLOG_POSTS } from '../constants';
-import { Calendar, User, ArrowRight, Search, X } from 'lucide-react';
+import { ContentFactory } from '../src/core/ContentFactory';
+import { Calendar, User, ArrowRight, Search, X, Tag } from 'lucide-react';
 
 const Blog = () => {
+  const [posts] = useState(() => ContentFactory.getBlogPosts());
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPosts = BLOG_POSTS.filter(post => 
-    post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+  const filteredPosts = posts.filter(post =>
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -18,7 +20,7 @@ const Blog = () => {
           <p className="text-slate-600 max-w-2xl mx-auto mb-8">
             Expert advice on fabric care, stain removal, and keeping your wardrobe looking fresh for longer.
           </p>
-          
+
           <div className="max-w-md mx-auto relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
               <Search size={20} />
@@ -31,7 +33,7 @@ const Blog = () => {
               className="w-full pl-12 pr-10 py-3 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent shadow-sm"
             />
             {searchQuery && (
-              <button 
+              <button
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600"
               >
@@ -46,12 +48,12 @@ const Blog = () => {
         {filteredPosts.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post) => (
-              <article key={post.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col h-full">
-                <div className="relative overflow-hidden h-56">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              <article key={post.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all group border border-slate-100 flex flex-col h-full">
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-700 uppercase tracking-wide">
                     {post.category}
@@ -79,8 +81,8 @@ const Blog = () => {
           <div className="text-center py-20 text-slate-500">
             <Search size={48} className="mx-auto mb-4 opacity-20" />
             <p className="text-lg">No articles found matching "{searchQuery}"</p>
-            <button 
-              onClick={() => setSearchQuery('')} 
+            <button
+              onClick={() => setSearchQuery('')}
               className="mt-4 text-brand-600 font-medium hover:underline"
             >
               Clear search
@@ -93,9 +95,9 @@ const Blog = () => {
           <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">Never Miss a Laundry Hack</h2>
           <p className="text-brand-200 mb-8 max-w-lg mx-auto">Subscribe to our newsletter for exclusive tips and monthly promo codes.</p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input 
-              type="email" 
-              placeholder="Your email address" 
+            <input
+              type="email"
+              placeholder="Your email address"
               className="flex-grow px-6 py-3 rounded-full text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-400"
             />
             <button className="bg-brand-500 hover:bg-brand-400 px-8 py-3 rounded-full font-bold transition-colors">

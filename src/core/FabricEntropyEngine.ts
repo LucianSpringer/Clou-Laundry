@@ -1,9 +1,5 @@
 
-/**
- * LUMEN HIGH-YIELD ENGINE: FabricEntropy
- * Uses client-side pixel manipulation to determine fabric complexity.
- * Complexity Score: 14.5 (High Density)
- */
+
 
 interface AnalysisResult {
   entropyScore: number;
@@ -42,7 +38,7 @@ export class FabricEntropyEngine {
 
         const imageData = ctx.getImageData(0, 0, width, height);
         const data = imageData.data;
-        
+
         let totalLuminance = 0;
         let edgeMetric = 0;
         const colorHistogram: Record<string, number> = {};
@@ -52,14 +48,14 @@ export class FabricEntropyEngine {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
+
           // Luminance Calculation (Perceived Brightness)
           const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
           totalLuminance += luminance;
 
           // Simple Edge Detection (Compare with next pixel)
           if (i + 4 < data.length) {
-            const nextLuminance = 0.299 * data[i+4] + 0.587 * data[i+5] + 0.114 * data[i+6];
+            const nextLuminance = 0.299 * data[i + 4] + 0.587 * data[i + 5] + 0.114 * data[i + 6];
             edgeMetric += Math.abs(luminance - nextLuminance);
           }
 
@@ -77,18 +73,18 @@ export class FabricEntropyEngine {
         let basePrice = 15000;
 
         if (textureScore < 15) {
-            density = 'Light'; // Silk / Synthetic
-            basePrice = 25000; 
+          density = 'Light'; // Silk / Synthetic
+          basePrice = 25000;
         } else if (textureScore > 40) {
-            density = 'Heavy'; // Wool / Denim
-            basePrice = 35000;
+          density = 'Heavy'; // Wool / Denim
+          basePrice = 35000;
         }
 
         // Find Dominant Color
         const dominantColor = Object.entries(colorHistogram).reduce((a, b) => a[1] > b[1] ? a : b)[0];
 
         // Artificial delay removed. Real calculation speed is the delay.
-        
+
         resolve({
           entropyScore: parseFloat(textureScore.toFixed(2)),
           dominantColor,

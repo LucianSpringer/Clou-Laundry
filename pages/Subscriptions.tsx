@@ -1,5 +1,5 @@
 import React from 'react';
-import { SUBSCRIPTION_PLANS } from '../constants';
+import { SUBSCRIPTION_PLANS } from '../src/core/ContentAssets';
 import { Check, Star, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -31,8 +31,8 @@ const Subscriptions = () => {
               </div>
               <div className="p-8 bg-slate-50/50">
                 <div className="flex items-center justify-center gap-2 mb-6 text-slate-700 font-medium bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
-                   <ShoppingBag size={20} className="text-brand-500" />
-                   {plan.bagSize}
+                  <ShoppingBag size={20} className="text-brand-500" />
+                  {plan.bagSize}
                 </div>
                 <ul className="space-y-4 mb-8">
                   {plan.features.map((feature, i) => (
@@ -42,8 +42,8 @@ const Subscriptions = () => {
                     </li>
                   ))}
                 </ul>
-                <Link 
-                  to={`/booking?subscription=${plan.id}`} 
+                <Link
+                  to={`/booking?subscription=${plan.id}`}
                   className={`block w-full py-4 rounded-xl font-bold transition-all shadow-lg ${plan.popular ? 'bg-brand-600 text-white hover:bg-brand-700 hover:shadow-brand-500/30' : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'}`}
                 >
                   Select Plan
@@ -54,16 +54,16 @@ const Subscriptions = () => {
         </div>
 
         <div className="mt-20 bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-8 max-w-5xl mx-auto">
-           <div className="bg-yellow-100 p-6 rounded-full text-yellow-600 shrink-0">
-             <Star size={48} fill="currentColor" />
-           </div>
-           <div className="text-center md:text-left flex-grow">
-             <h2 className="text-2xl font-bold text-slate-900 mb-2">Not sure which plan is right?</h2>
-             <p className="text-slate-600">Start with a <strong>One-Time Wash</strong> and if you subscribe within 7 days, we'll credit the cost towards your first month!</p>
-           </div>
-           <Link to="/booking" className="whitespace-nowrap bg-slate-900 text-white px-8 py-3 rounded-lg font-bold hover:bg-slate-800 transition-colors">
-             Book Trial Wash
-           </Link>
+          <div className="bg-yellow-100 p-6 rounded-full text-yellow-600 shrink-0">
+            <Star size={48} fill="currentColor" />
+          </div>
+          <div className="text-center md:text-left flex-grow">
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Not sure which plan is right?</h2>
+            <p className="text-slate-600">Start with a <strong>One-Time Wash</strong> and if you subscribe within 7 days, we'll credit the cost towards your first month!</p>
+          </div>
+          <Link to="/booking" className="whitespace-nowrap bg-slate-900 text-white px-8 py-3 rounded-lg font-bold hover:bg-slate-800 transition-colors">
+            Book Trial Wash
+          </Link>
         </div>
       </div>
     </div>

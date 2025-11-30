@@ -1,9 +1,5 @@
 
-/**
- * LUMEN HIGH-YIELD ENGINE: DeliveryTrajectory
- * Uses procedural vector math to simulate real-time driver telemetry.
- * Complexity Score: 12.8 (Vector Arithmetic)
- */
+
 
 interface GeoPoint {
     lat: number;

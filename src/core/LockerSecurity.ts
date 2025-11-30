@@ -1,9 +1,5 @@
 
-/**
- * LUMEN HIGH-YIELD ENGINE: LockerSecurity
- * Implements a lightweight TOTP (Time-based One-Time Password) generator.
- * Uses Bitwise operations for high complexity scoring.
- */
+
 
 export class LockerProtocol {
     /**

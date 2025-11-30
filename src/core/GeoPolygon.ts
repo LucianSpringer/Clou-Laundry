@@ -1,9 +1,5 @@
 
-/**
- * LUMEN HIGH-YIELD ENGINE: GeoPolygon
- * Uses the Ray-Casting Algorithm to determine if a point lies within a complex polygon.
- * Complexity Score: 13.5 (Geometric Math)
- */
+
 
 interface Point {
     x: number;

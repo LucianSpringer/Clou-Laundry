@@ -4,11 +4,28 @@ import { ArrowRight, Star, CheckCircle, Clock, Truck, Shield, MapPin, Search } f
 import { TESTIMONIALS, SERVICE_ASSETS } from '../src/core/ContentAssets';
 import { GeoFenceEngine } from '../src/core/GeoPolygon';
 import { PricingFactory } from '../src/core/ProceduralPricing';
+import { QuadTree } from '../src/core/SpatialQuadTree';
 import { Shirt } from 'lucide-react';
 
 const Hero = () => {
   const [zipCode, setZipCode] = useState('');
   const [checkResult, setCheckResult] = useState<'available' | 'unavailable' | null>(null);
+  const [courierCount, setCourierCount] = useState<number>(0);
+
+  // Initialize Spatial Partitioning System
+  // In a real app, this would be a persistent service, but we init it here for the demo
+  const [courierNetwork] = useState(() => {
+    const qt = new QuadTree({ x: 50, y: 50, w: 50, h: 50 }, 4);
+    // Seed with 50 procedural courier entities
+    for (let i = 0; i < 50; i++) {
+      qt.insert({
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        data: { id: `courier_${i}` }
+      });
+    }
+    return qt;
+  });
 
   const checkArea = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,8 +34,23 @@ const Hero = () => {
 
     if (isAvailable) {
       setCheckResult('available');
+
+      // Query the QuadTree for couriers in this sector
+      // Simulating mapping zip code to coordinates
+      const sectorX = Math.random() * 80;
+      const sectorY = Math.random() * 80;
+
+      const nearbyCouriers = courierNetwork.query({
+        x: sectorX,
+        y: sectorY,
+        w: 15,
+        h: 15
+      });
+
+      setCourierCount(nearbyCouriers.length);
     } else {
       setCheckResult('unavailable');
+      setCourierCount(0);
     }
   };
 
@@ -54,8 +86,13 @@ const Hero = () => {
               </button>
             </form>
             {checkResult === 'available' && (
-              <div className="px-4 py-2 text-green-600 text-sm font-bold flex items-center gap-2">
-                <CheckCircle size={14} /> Great! We cover your area.
+              <div className="px-4 py-2 text-green-600 text-sm font-bold flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <CheckCircle size={14} /> Great! We cover your area.
+                </div>
+                <div className="text-xs text-green-700 font-normal pl-6">
+                  <span className="font-mono font-bold">{courierCount}</span> active couriers currently in your sector.
+                </div>
               </div>
             )}
             {checkResult === 'unavailable' && (

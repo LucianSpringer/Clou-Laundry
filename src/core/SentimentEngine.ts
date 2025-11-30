@@ -1,9 +1,5 @@
 
-/**
- * LUMEN HIGH-YIELD ENGINE: SentimentEngine
- * A lightweight Bag-of-Words tokenizer to score text feedback.
- * Complexity Score: 11.2 (NLP Logic)
- */
+
 
 export class SentimentAnalyzer {
     private static readonly LEXICON: Record<string, number> = {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { GALLERY_ITEMS } from '../constants';
+import { GALLERY_ITEMS } from '../src/core/ContentAssets';
 import { Link } from 'react-router-dom';
 
 const BeforeAfterCard = ({ item }: { item: typeof GALLERY_ITEMS[0] }) => {
   const [showAfter, setShowAfter] = useState(false);
 
   return (
-    <div 
+    <div
       className="relative rounded-2xl overflow-hidden h-[400px] group cursor-pointer shadow-xl"
       onMouseEnter={() => setShowAfter(true)}
       onMouseLeave={() => setShowAfter(false)}
@@ -24,7 +24,7 @@ const BeforeAfterCard = ({ item }: { item: typeof GALLERY_ITEMS[0] }) => {
           After
         </div>
       </div>
-      
+
       <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-6 pt-20">
         <h3 className="text-white font-bold text-lg">{item.title}</h3>
         <p className="text-slate-300 text-sm">{item.category}</p>

@@ -1,9 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LOYALTY_TIERS } from '../constants';
-import { Crown, Check, Gift, TrendingUp, Truck, Zap, Tag, UserCheck, Star, Sparkles } from 'lucide-react';
+import { LOYALTY_TIERS } from '../src/core/ContentAssets';
+import { SocialGraphEngine } from '../src/core/InfluenceGraph';
+import { Crown, Check, Gift, TrendingUp, Truck, Zap, Tag, UserCheck, Star, Sparkles, Share2, Users, BarChart } from 'lucide-react';
 
 const Loyalty = () => {
+  const [socialRank, setSocialRank] = React.useState<{ rank: number, percentile: number, totalNodes: number } | null>(null);
+
+  React.useEffect(() => {
+    // Simulate Social Graph Calculation
+    const networkSize = 50;
+    const network = SocialGraphEngine.generateNetwork(networkSize);
+    const rankedNodes = SocialGraphEngine.computePageRank(network);
+
+    // Simulate "User" being one of the top nodes (e.g., index 3)
+    const userIndex = 3;
+    const userNode = rankedNodes[userIndex];
+
+    setSocialRank({
+      rank: userIndex + 1,
+      percentile: Math.round(((networkSize - userIndex) / networkSize) * 100),
+      totalNodes: networkSize
+    });
+  }, []);
+
   const getBenefitIcon = (benefit: string) => {
     const text = benefit.toLowerCase();
     if (text.includes('pickup')) return Truck;
@@ -65,6 +85,74 @@ const Loyalty = () => {
               </div>
               <h3 className="text-xl font-bold mb-3">Get Rewarded</h3>
               <p className="text-slate-600">Redeem points for discounts and enjoy automatic tier upgrades for permanent perks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Social Influence Graph Section */}
+      <div className="py-20 bg-white border-t border-slate-100">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="flex-1">
+              <span className="text-brand-600 font-bold tracking-wider uppercase text-sm mb-2 block">Viral Influence Graph</span>
+              <h2 className="text-3xl font-serif font-bold text-slate-900 mb-6">Your Social Capital</h2>
+              <p className="text-slate-600 mb-6 text-lg">
+                We use Google's <strong>PageRank Algorithm</strong> to map your influence in the Clou community.
+                Refer friends to increase your centrality score and unlock hidden "Influencer" tiers.
+              </p>
+
+              {socialRank && (
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 grid grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-slate-900">#{socialRank.rank}</div>
+                    <div className="text-xs text-slate-500 uppercase font-bold mt-1">Global Rank</div>
+                  </div>
+                  <div className="text-center border-l border-slate-200">
+                    <div className="text-3xl font-bold text-brand-600">Top {100 - socialRank.percentile}%</div>
+                    <div className="text-xs text-slate-500 uppercase font-bold mt-1">Percentile</div>
+                  </div>
+                  <div className="text-center border-l border-slate-200">
+                    <div className="text-3xl font-bold text-slate-900">{socialRank.totalNodes}</div>
+                    <div className="text-xs text-slate-500 uppercase font-bold mt-1">Network Size</div>
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-8 flex gap-4">
+                <button className="flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-brand-700 transition-colors">
+                  <Share2 size={18} /> Invite Friends
+                </button>
+                <button className="flex items-center gap-2 border border-slate-300 text-slate-700 px-6 py-3 rounded-lg font-bold hover:bg-slate-50 transition-colors">
+                  <BarChart size={18} /> View Graph
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-500 to-purple-600 rounded-full blur-3xl opacity-20"></div>
+              <div className="relative bg-white p-6 rounded-2xl shadow-xl border border-slate-100">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="font-bold text-slate-900 flex items-center gap-2"><Users size={20} className="text-brand-500" /> Network Topology</h3>
+                  <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">Live</span>
+                </div>
+                {/* Abstract Graph Visualization */}
+                <svg viewBox="0 0 400 300" className="w-full h-auto rounded bg-slate-50">
+                  <circle cx="200" cy="150" r="40" fill="#4f46e5" opacity="0.2" className="animate-pulse" />
+                  <circle cx="200" cy="150" r="8" fill="#4f46e5" />
+                  {/* Nodes */}
+                  {[...Array(12)].map((_, i) => {
+                    const angle = (i / 12) * Math.PI * 2;
+                    const x = 200 + Math.cos(angle) * 100;
+                    const y = 150 + Math.sin(angle) * 80;
+                    return (
+                      <g key={i}>
+                        <line x1="200" y1="150" x2={x} y2={y} stroke="#cbd5e1" strokeWidth="1" />
+                        <circle cx={x} cy={y} r="4" fill="#94a3b8" />
+                      </g>
+                    );
+                  })}
+                </svg>
+              </div>
             </div>
           </div>
         </div>

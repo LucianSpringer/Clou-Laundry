@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { PRICING_DATA } from '../constants';
+import { PricingFactory } from '../src/core/ProceduralPricing';
 
 const Pricing = () => {
-  const categories = Array.from(new Set(PRICING_DATA.map(item => item.category)));
+  const [pricingData, setPricingData] = useState([]);
+
+  useEffect(() => {
+    const fetchPricing = async () => {
+      const data = await PricingFactory.getLivePricing();
+      setPricingData(data);
+    };
+    fetchPricing();
+  }, []);
+
+  const categories = Array.from(new Set(pricingData.map(item => item.category)));
 
   return (
     <div className="bg-slate-50 min-h-screen">
-       <div className="bg-brand-900 text-white py-16">
+      <div className="bg-brand-900 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-serif font-bold mb-4">Transparent Pricing</h1>
           <p className="text-brand-200 max-w-2xl mx-auto">No hidden fees. Free pickup and delivery for orders above Rp 100,000.</p>
@@ -22,7 +32,7 @@ const Pricing = () => {
                 <h3 className="font-bold text-lg text-slate-800">{category}</h3>
               </div>
               <div className="divide-y divide-slate-100">
-                {PRICING_DATA.filter(item => item.category === category).map((item, index) => (
+                {pricingData.filter(item => item.category === category).map((item, index) => (
                   <div key={index} className="px-6 py-4 flex justify-between items-center hover:bg-slate-50 transition-colors">
                     <div>
                       <p className="font-medium text-slate-900">{item.service}</p>

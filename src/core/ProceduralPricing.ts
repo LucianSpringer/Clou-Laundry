@@ -1,15 +1,19 @@
 
-/**
- * LUMEN HIGH-YIELD ENGINE: ProceduralPricing
- * Generates pricing models dynamically to avoid 'Static Data' penalties.
- */
+import { SERVICE_ASSETS } from './ContentAssets';
+
+
 
 export interface DynamicService {
     id: string;
     title: string;
+    description: string;
     basePrice: number;
     surgeMultiplier: number;
     tags: string[];
+    features: string[];
+    turnaroundTime: number;
+    faq: { question: string; answer: string }[];
+    imageUrl: string;
 }
 
 export class PricingFactory {
@@ -32,9 +36,17 @@ export class PricingFactory {
             return {
                 id: `svc_${svc.key}_${Date.now()}`,
                 title: svc.name,
+                description: SERVICE_ASSETS[svc.name]?.description || 'Premium laundry service.',
                 basePrice: adjustedPrice,
                 surgeMultiplier: loadFactor > 0.8 ? 1.5 : 1.0,
-                tags: loadFactor > 0.8 ? ['High Demand', 'Surge Pricing'] : ['Standard Rate']
+                tags: loadFactor > 0.8 ? ['High Demand', 'Surge Pricing'] : ['Standard Rate'],
+                features: ['Free Pickup', 'Eco-Friendly Detergent', 'Folded & Packed'],
+                turnaroundTime: 24,
+                faq: [
+                    { question: 'Can I schedule a specific pickup time?', answer: 'Yes, you can choose a 1-hour window during booking.' },
+                    { question: 'Do you separate colors?', answer: 'Absolutely. We sort lights, darks, and delicates before washing.' }
+                ],
+                imageUrl: 'https://images.unsplash.com/photo-1545173168-9f1947eebb8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
             };
         });
     }

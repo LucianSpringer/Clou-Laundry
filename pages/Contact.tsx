@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, ChevronDown, ChevronUp } from 'lucide-react';
-import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE, FAQS } from '../constants';
+import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE, FAQS } from '../src/core/ContentAssets';
 
 const Contact = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -57,17 +57,17 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="h-[400px] bg-slate-200 rounded-2xl overflow-hidden relative shadow-lg">
-             <iframe 
-               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.43002272847!2d112.7272825!3d-7.2754438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbf8381ac47f%3A0x3027a76e352be40!2sSurabaya%2C%20Surabaya%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1709222222222!5m2!1sen!2sid" 
-               width="100%" 
-               height="100%" 
-               style={{ border: 0 }} 
-               allowFullScreen 
-               loading="lazy" 
-               referrerPolicy="no-referrer-when-downgrade"
-               title="Google Maps"
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.43002272847!2d112.7272825!3d-7.2754438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fbf8381ac47f%3A0x3027a76e352be40!2sSurabaya%2C%20Surabaya%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1709222222222!5m2!1sen!2sid"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Google Maps"
             ></iframe>
           </div>
         </div>
@@ -77,7 +77,7 @@ const Contact = () => {
           <div className="space-y-4">
             {FAQS.map((faq, index) => (
               <div key={index} className="border border-slate-200 rounded-xl overflow-hidden">
-                <button 
+                <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full flex justify-between items-center p-4 text-left bg-white hover:bg-slate-50 transition-colors"
                 >

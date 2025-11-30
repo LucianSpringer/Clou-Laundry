@@ -17,6 +17,7 @@ import AiQuote from './pages/AiQuote';
 import Careers from './pages/Careers';
 import GiftCards from './pages/GiftCards';
 import SmartLockers from './pages/SmartLockers';
+import AdminDashboard from './pages/AdminDashboard';
 
 // Simple ScrollToTop component
 const ScrollToTop = () => {
@@ -32,17 +33,17 @@ const About = () => (
   <div className="container mx-auto px-4 py-20 text-center">
     <h1 className="text-4xl font-serif font-bold mb-6">About Clou Laundry</h1>
     <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-12">
-      Founded in 2023 in the heart of Surabaya, Clou aims to revolutionize the way you think about laundry. 
+      Founded in 2023 in the heart of Surabaya, Clou aims to revolutionize the way you think about laundry.
       We combine modern technology with traditional care to deliver the freshest clothes to your doorstep.
     </p>
     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-       <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Our Team" className="rounded-xl shadow-lg" />
-       <div className="text-left flex flex-col justify-center">
-         <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-         <p className="text-slate-600 mb-4">To provide convenient, eco-friendly, and high-quality fabric care services that give our customers the luxury of time.</p>
-         <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-         <p className="text-slate-600">To be Surabaya's most trusted household partner.</p>
-       </div>
+      <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Our Team" className="rounded-xl shadow-lg" />
+      <div className="text-left flex flex-col justify-center">
+        <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+        <p className="text-slate-600 mb-4">To provide convenient, eco-friendly, and high-quality fabric care services that give our customers the luxury of time.</p>
+        <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+        <p className="text-slate-600">To be Surabaya's most trusted household partner.</p>
+      </div>
     </div>
   </div>
 );
@@ -70,6 +71,7 @@ function App() {
           <Route path="/careers" element={<Careers />} />
           <Route path="/gift-cards" element={<GiftCards />} />
           <Route path="/smart-lockers" element={<SmartLockers />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </Layout>
     </Router>

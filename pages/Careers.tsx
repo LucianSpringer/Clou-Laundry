@@ -1,9 +1,11 @@
-import React from 'react';
-import { JOB_OPENINGS } from '../constants';
-import { MapPin, Clock, Briefcase, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ContentFactory } from '../src/core/ContentFactory';
+import { Briefcase, MapPin, Clock, ArrowRight, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Careers = () => {
+  const [jobs] = useState(() => ContentFactory.getCareers());
+
   return (
     <div className="bg-white min-h-screen">
       <div className="bg-brand-50 py-20">
@@ -34,20 +36,20 @@ const Careers = () => {
               ))}
             </ul>
           </div>
-          <img 
-            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
-            alt="Team Meeting" 
+          <img
+            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+            alt="Team Meeting"
             className="rounded-2xl shadow-xl rotate-1"
           />
         </div>
 
         <h2 className="text-2xl font-bold text-slate-900 mb-8 border-b border-slate-100 pb-4">Open Positions</h2>
         <div className="grid gap-6">
-          {JOB_OPENINGS.map((job) => (
-            <div key={job.id} className="bg-white border border-slate-200 rounded-xl p-6 hover:border-brand-400 hover:shadow-md transition-all group flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <div>
-                <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">{job.title}</h3>
-                <div className="flex flex-wrap gap-4 mt-2 text-sm text-slate-500">
+          {jobs.map((job) => (
+            <div key={job.id} className="bg-white p-8 rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-lg transition-all flex flex-col md:flex-row justify-between items-center group">
+              <div className="mb-4 md:mb-0">
+                <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition-colors">{job.title}</h3>
+                <div className="flex flex-wrap gap-4 text-sm text-slate-500">
                   <span className="flex items-center gap-1"><Briefcase size={16} /> {job.department}</span>
                   <span className="flex items-center gap-1"><Clock size={16} /> {job.type}</span>
                   <span className="flex items-center gap-1"><MapPin size={16} /> {job.location}</span>

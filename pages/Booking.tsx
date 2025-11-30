@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BookingStep, BookingData } from '../types';
-
 import { PricingFactory, DynamicService } from '../src/core/ProceduralPricing';
-import { Calendar, Clock, CreditCard, CheckCircle, ChevronRight, ChevronLeft, AlertCircle, Calendar as CalendarIcon, Download, Calculator, Scale, Droplets, Zap, Leaf, Heart, Shirt, Sparkles, Briefcase, Truck } from 'lucide-react';
+import { VolumetricEngine } from '../src/core/VolumetricEngine';
+import { WashOptimizationSystem, WashManifest } from '../src/core/WashMatrix';
+import { Shirt, Sparkles, Briefcase, Truck, Calendar, Clock, MapPin, CreditCard, ChevronRight, ChevronLeft, CheckCircle, Info, Calculator, Scale, Droplets, Zap, Leaf, Heart, AlertCircle, Calendar as CalendarIcon, Download } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 const Booking = () => {
   const [searchParams] = useSearchParams();
 
-  // Local Scent Options (Moved from constants.ts)
+  // Local Scent Options
   const SCENT_OPTIONS = [
     { id: 'lavender', name: 'Lavender Fields', description: 'Calming and floral', price: 0 },
     { id: 'eucalyptus', name: 'Eucalyptus Mint', description: 'Fresh and invigorating', price: 5000 },
@@ -36,33 +37,47 @@ const Booking = () => {
     paymentMethod: 'stripe'
   });
   const [errors, setErrors] = useState<Partial<Record<keyof BookingData, string>>>({});
+  const [washConfig, setWashConfig] = useState<WashManifest | null>(null);
 
   // Effect to handle pre-selection
   useEffect(() => {
     const serviceParam = searchParams.get('service');
     if (serviceParam) {
-      // Fuzzy match for legacy IDs or new dynamic IDs
       const serviceExists = services.some(s => s.id === serviceParam || s.id.includes(serviceParam));
       if (serviceExists) {
         setFormData(prev => {
           if (prev.services.includes(serviceParam)) return prev;
           return { ...prev, services: [...prev.services, serviceParam] };
         });
-        setStep(BookingStep.PREFERENCES); // Skip to prefs if service selected
+        setStep(BookingStep.PREFERENCES);
       }
     }
-  }, [searchParams]);
+  }, [searchParams, services]);
 
-  // Calculator Logic
+  // Calculate estimated weight and cost
   useEffect(() => {
-    // Rough estimate: T-shirt 0.2kg, Pants 0.5kg, Dress 0.4kg, Sheet 0.8kg
-    const weight =
-      (formData.items['T-Shirt'] * 0.2) +
-      (formData.items['Pants'] * 0.5) +
-      (formData.items['Dress'] * 0.4) +
-      (formData.items['Bed Sheet'] * 0.8);
-    setFormData(prev => ({ ...prev, estimatedWeight: parseFloat(weight.toFixed(1)) }));
-  }, [formData.items]);
+    const result = VolumetricEngine.calculateLoad(formData.items);
+
+    // Base price calculation
+    const scentPrice = SCENT_OPTIONS.find(s => s.id === formData.scent)?.price || 0;
+
+    // Dynamic Pricing Logic
+    const basketCost = PricingFactory.calculateBasket(
+      formData.services.map(s => ({ weight: result.totalWeightKg, type: s }))
+    );
+
+    setFormData(prev => ({
+      ...prev,
+      estimatedWeight: result.totalWeightKg,
+      estimatedPrice: basketCost + scentPrice
+    }));
+
+    // Calculate Optimal Wash Cycle
+    // Using a pseudo-random entropy score for now as we don't have the vision system connected
+    const entropyScore = Math.floor(Math.random() * 60);
+    const config = WashOptimizationSystem.calculateCycle(entropyScore, result.totalWeightKg, false);
+    setWashConfig(config);
+  }, [formData.items, formData.services, formData.scent, SCENT_OPTIONS]);
 
   const validateStep = (currentStep: BookingStep): boolean => {
     const newErrors: Partial<Record<keyof BookingData, string>> = {};
@@ -197,6 +212,35 @@ const Booking = () => {
 
       <div className="text-center pt-4">
         <p className="text-sm text-slate-500 mb-4">This is just an estimate. We weigh everything exactly upon pickup.</p>
+
+        {washConfig && (
+          <div className="bg-slate-800 text-white p-4 rounded-xl mb-6 text-left">
+            <h4 className="font-bold text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+              <Sparkles size={14} className="text-brand-300" /> AI Wash Configuration
+            </h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="block text-slate-400 text-xs">Water Temp</span>
+                <span className="font-mono font-bold">{washConfig.waterTempCelsius}°C</span>
+              </div>
+              <div>
+                <span className="block text-slate-400 text-xs">Drum RPM</span>
+                <span className="font-mono font-bold">{washConfig.drumRPM}</span>
+              </div>
+              <div>
+                <span className="block text-slate-400 text-xs">Detergent</span>
+                <span className="font-mono font-bold">{washConfig.detergentMl} ml</span>
+              </div>
+              <div>
+                <span className="block text-slate-400 text-xs">Risk Factor</span>
+                <span className={`font-mono font-bold ${washConfig.riskFactor > 0.5 ? 'text-orange-400' : 'text-green-400'}`}>
+                  {(washConfig.riskFactor * 100).toFixed(1)}%
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
         <button onClick={handleNext} className="text-brand-600 font-bold hover:underline">Skip Calculator</button>
       </div>
     </div>
